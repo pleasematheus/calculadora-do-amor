@@ -16,15 +16,24 @@ const DESCRICAO =
   "Filtre idade, altura, renda e o resto das suas exigências e veja que fatia da população brasileira sobra. Dados do IBGE e do Ministério da Saúde.";
 
 export const metadata: Metadata = {
+  // Sem metadataBase o Next resolve URL relativa contra o domínio que ele
+  // adivinha do deploy — na Vercel, o endereço específico daquele build, que
+  // muda a cada preview. Fixando aqui, og:image e canonical apontam sempre
+  // para produção. Trocar esta linha ao ligar um domínio próprio.
+  metadataBase: new URL("https://calculadora-do-amor-nine.vercel.app"),
   title: TITULO,
   description: DESCRICAO,
+  // O link circula com sujeira grudada: ?fbclid= do Facebook e Instagram,
+  // ?utm_* de qualquer campanha. Cada variação é uma URL diferente para o
+  // buscador. O canonical junta todas numa só.
+  alternates: { canonical: "/" },
   // O produto inteiro chega por link colado no WhatsApp, no Instagram e no X.
   // Sem estas tags o link vira um retângulo cinza — é o funil vazando na
-  // primeira etapa. A imagem sai de app/opengraph-image.tsx; a URL absoluta
-  // quem monta é o Next, a partir do domínio do deploy.
+  // primeira etapa. A imagem sai de app/opengraph-image.tsx.
   openGraph: {
     type: "website",
     locale: "pt_BR",
+    url: "/",
     siteName: TITULO,
     title: TITULO,
     description: DESCRICAO,
