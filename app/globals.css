@@ -1,26 +1,52 @@
 @import "tailwindcss";
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+@import '@astryxdesign/theme-neutral/theme.css';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Instrument Serif nos tokens de tipografia do Astryx. */
+  --font-family-body: var(--font-instrument-serif);
+  --font-family-heading: var(--font-instrument-serif);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-instrument-serif);
+}
+
+/* next/image com `fill` injeta position:absolute inline, e só !important vence
+   isso. Sem fixed a foto para em 100vh e aparece uma faixa branca embaixo do
+   resultado, porque o documento agora rola até as seções de texto. */
+.fundo-fixo {
+  position: fixed !important;
+}
+
+/* Rampa de raridade: a única cor da página que carrega informação. Quanto menos
+   gente sobra, mais fundo e mais roxo fica o número e a grade — o vermelho de
+   tijolo vira ameixa, e no extremo encosta no lilás do fundo.
+   Duas mãos porque o Astryx trata texto e ícone por caminhos diferentes:
+   `Text color="accent"` lê --color-text-accent, mas `Icon color="accent"` lê
+   --color-accent (o coral do botão) — --color-icon-accent não tem consumidor
+   nenhum no CSS do design system. Então os ícones da faixa vão de
+   color="inherit" e pegam o `color` daqui por herança. Texto do Astryx sempre
+   declara a própria cor (.astryx-text.primary, .secondary, o título e a
+   descrição do EmptyState, o rótulo do Button), então nada mais herda isto.
+   Contraste medido sobre as duas superfícies onde a rampa aparece — amarelo do
+   cartão #F8FAB4 e pêssego da barra #FFC7A7 — todos acima de 4,5:1, folgado
+   para o mínimo de 3:1 de ícone e texto grande:
+     comum     #B23A3A → 5,43 / 3,93
+     seletivo  #8A2A2A → 7,90 / 5,72
+     raro      #4A1020 → 13,94 / 10,09
+   A cor não conta nada sozinha: o percentual e a contagem estão escritos ao
+   lado, e a grade tem o equivalente em texto para leitor de tela. */
+.faixa-comum {
+  --color-text-accent: #B23A3A;
+  color: #B23A3A;
+}
+.faixa-seletivo {
+  --color-text-accent: #8A2A2A;
+  color: #8A2A2A;
+}
+.faixa-raro {
+  --color-text-accent: #4A1020;
+  color: #4A1020;
 }

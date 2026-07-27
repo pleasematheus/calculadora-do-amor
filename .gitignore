@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.tokensave
+
+# astryx theme build: só o .css é importado (app/layout.tsx); o módulo JS e as
+# declarações que saem junto não são usados por ninguém.
+app/amor.js
+app/amor.d.ts
+app/amor.variants.d.ts
+
+# ferramentas
+.claude/
+.impeccable/
